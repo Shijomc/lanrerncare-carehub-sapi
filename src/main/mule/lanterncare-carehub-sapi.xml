@@ -129,13 +129,7 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  "type": "https://api.lantern.com/errors/validation-error",
-  title: "Validation Error",
-  status: 400,
-  detail: "Invalid request payload",
-  instance: "/sf/events/case"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
@@ -145,13 +139,7 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  "type": "https://api.lantern.com/errors/validation-error",
-  title: "Validation Error",
-  status: 400,
-  detail: "Invalid request payload",
-  instance: "/sf/events/case"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
@@ -161,7 +149,7 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-"https://storage.lantern.com/docs/questionnaire.pdf?token=eyJ..." as String {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
@@ -171,9 +159,7 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  status: "Healthy"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
@@ -183,12 +169,7 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  status: "accepted",
-  message: "Event accepted for processing",
-  eventId: "evt-123e4567-e89b-12d3-a456-426614174000",
-  processedAt: "2026-03-10T10:00:05Z"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
@@ -198,12 +179,7 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  status: "accepted",
-  message: "Event accepted for processing",
-  eventId: "evt-123e4567-e89b-12d3-a456-426614174000",
-  processedAt: "2026-03-10T10:00:05Z"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
@@ -213,12 +189,7 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  status: "accepted",
-  message: "Event accepted for processing",
-  eventId: "evt-123e4567-e89b-12d3-a456-426614174000",
-  processedAt: "2026-03-10T10:00:05Z"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
@@ -228,12 +199,7 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  status: "accepted",
-  message: "Event accepted for processing",
-  eventId: "evt-123e4567-e89b-12d3-a456-426614174000",
-  processedAt: "2026-03-10T10:00:05Z"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
@@ -243,10 +209,7 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  fileUri: "https://storage.lantern.com/documents/questionnaire_650e8400.pdf",
-  fileBytes: 245678
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
@@ -256,10 +219,7 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  fileUri: "https://storage.lantern.com/documents/questionnaire_650e8400.pdf",
-  fileBytes: 245678
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
@@ -269,10 +229,7 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  fileUri: "https://storage.lantern.com/documents/questionnaire_650e8400.pdf",
-  fileBytes: 245678
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
@@ -282,12 +239,7 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  status: "accepted",
-  message: "Event accepted for processing",
-  eventId: "evt-123e4567-e89b-12d3-a456-426614174000",
-  processedAt: "2026-03-10T10:00:05Z"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
@@ -297,12 +249,7 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  status: "accepted",
-  message: "Event accepted for processing",
-  eventId: "evt-123e4567-e89b-12d3-a456-426614174000",
-  processedAt: "2026-03-10T10:00:05Z"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
@@ -312,12 +259,7 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  status: "accepted",
-  message: "Event accepted for processing",
-  eventId: "evt-123e4567-e89b-12d3-a456-426614174000",
-  processedAt: "2026-03-10T10:00:05Z"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
@@ -327,12 +269,7 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  status: "accepted",
-  message: "Event accepted for processing",
-  eventId: "evt-123e4567-e89b-12d3-a456-426614174000",
-  processedAt: "2026-03-10T10:00:05Z"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
