@@ -9,15 +9,14 @@
 
 	<name>lanrencare-carehub-sapi</name>
 
-	    <!-- ADD THIS BLOCK -->
-    <distributionManagement>
-        <repository>
-            <id>anypoint-exchange-v3</id>
-            <name>Anypoint Exchange</name>
-            <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/3b5906df-666f-48a2-b837-f9309008aec9/maven</url>
-            <layout>default</layout>
-        </repository>
-    </distributionManagement>
+	<distributionManagement>
+		<repository>
+			<id>anypoint-exchange-v3</id>
+			<name>Anypoint Exchange</name>
+			<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/3b5906df-666f-48a2-b837-f9309008aec9/maven</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,11 +33,58 @@
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>3.2.0</version>
 			</plugin>
+
 			<plugin>
 				<groupId>org.mule.tools.maven</groupId>
 				<artifactId>mule-maven-plugin</artifactId>
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
+				<configuration>
+					<cloudhub2Deployment>
+						<uri>https://anypoint.mulesoft.com</uri>
+						<provider>MC</provider>
+						<!-- Passed via -Dmule.env in build.yml -->
+						<environment>${mule.env}</environment>
+						<!--
+							IMPORTANT: Replace this with your actual Shared Space or Private Space name.
+							Find it in: Runtime Manager > Infrastructure (CloudHub 2.0 tab)
+							Examples: "Cloudhub-US-East-1", "Cloudhub-EU-West-1", or your Private Space name
+						-->
+						<target>Cloudhub-US-East-1</target>
+						<applicationName>lanrencare-carehub-sapi</applicationName>
+						<replicas>1</replicas>
+						<vCores>0.1</vCores>
+						<connectedAppClientId>${client.id}</connectedAppClientId>
+						<connectedAppClientSecret>${client.secret}</connectedAppClientSecret>
+						<connectedAppGrantType>client_credentials</connectedAppGrantType>
+					</cloudhub2Deployment>
+				</configuration>
+			</plugin>
+
+			<!--
+				Exchange plugin: publishes the app asset to Anypoint Exchange
+				before deploying to CloudHub 2.0.
+			-->
+			<plugin>
+				<groupId>org.mule.tools.maven</groupId>
+				<artifactId>exchange-mule-maven-plugin</artifactId>
+				<version>0.0.23</version>
+				<executions>
+					<execution>
+						<id>validate</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>exchange-pre-deploy</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>exchange-deploy</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -75,7 +121,8 @@
 		<repository>
 			<id>anypoint-exchange-v3</id>
 			<name>Anypoint Exchange</name>
-			<url>https://maven.anypoint.mulesoft.com/api/v3/maven</url>
+			<!-- Org-scoped URL so private Exchange assets can be resolved -->
+			<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/3b5906df-666f-48a2-b837-f9309008aec9/maven</url>
 			<layout>default</layout>
 		</repository>
 		<repository>
