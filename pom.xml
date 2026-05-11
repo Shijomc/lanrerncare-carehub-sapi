@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>3b5906df-666f-48a2-b837-f9309008aec9</groupId>
 	<artifactId>lanrencare-carehub-sapi</artifactId>
-	<version>1.0.0-${revision}</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
 
 	<name>lanrencare-carehub-sapi</name>
@@ -22,10 +19,8 @@
 	</distributionManagement>
 
 	<properties>
-		<revision>SNAPSHOT</revision>   <!-- default for local builds -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
 		<app.runtime>4.9.8</app.runtime>
 		<mule.maven.plugin.version>4.3.0</mule.maven.plugin.version>
 	</properties>
@@ -47,12 +42,13 @@
 					<cloudhub2Deployment>
 						<uri>https://anypoint.mulesoft.com</uri>
 						<provider>MC</provider>
-						<!-- Passed via -Dmule.env in build.yml -->
 						<environment>${mule.env}</environment>
-						<!-- IMPORTANT: Replace this with your actual Shared Space or Private 
-							Space name. Find it in: Runtime Manager > Infrastructure (CloudHub 2.0 tab) 
-							Examples: "Cloudhub-US-East-1", "Cloudhub-EU-West-1", or your Private Space 
-							name -->
+						<!--
+							IMPORTANT: Replace the value below with your actual
+							Shared Space or Private Space name from:
+							Runtime Manager > Infrastructure (CloudHub 2.0 tab)
+							Examples: "Cloudhub-US-East-1", "Cloudhub-EU-West-1"
+						-->
 						<target>Cloudhub-US-East-1</target>
 						<applicationName>lanrencare-carehub-sapi</applicationName>
 						<replicas>1</replicas>
@@ -64,8 +60,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- Exchange plugin: publishes the app asset to Anypoint Exchange before 
-				deploying to CloudHub 2.0. -->
 			<plugin>
 				<groupId>org.mule.tools.maven</groupId>
 				<artifactId>exchange-mule-maven-plugin</artifactId>
@@ -87,33 +81,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>flatten-maven-plugin</artifactId>
-				<version>1.5.0</version>
-				<configuration>
-					<updatePomFile>true</updatePomFile>
-					<flattenMode>resolveCiFriendlyVersions</flattenMode>
-				</configuration>
-				<executions>
-					<execution>
-						<id>flatten</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>flatten</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>flatten.clean</id>
-						<phase>clean</phase>
-						<goals>
-							<goal>clean</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
 		</plugins>
 	</build>
 
@@ -130,6 +97,10 @@
 			<version>1.2.6</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
+		<!--
+			Verify this artifactId spelling in Anypoint Exchange.
+			Original pom had "lanrerncare" (extra 'r') — confirm correct name.
+		-->
 		<dependency>
 			<groupId>3b5906df-666f-48a2-b837-f9309008aec9</groupId>
 			<artifactId>lanrerncare-carehub-sapi</artifactId>
@@ -149,7 +120,6 @@
 		<repository>
 			<id>anypoint-exchange-v3</id>
 			<name>Anypoint Exchange</name>
-			<!-- Org-scoped URL so private Exchange assets can be resolved -->
 			<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/3b5906df-666f-48a2-b837-f9309008aec9/maven</url>
 			<layout>default</layout>
 		</repository>

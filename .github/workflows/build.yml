@@ -73,7 +73,7 @@ jobs:
                   <repository>
                     <id>anypoint-exchange-v3</id>
                     <name>Anypoint Exchange</name>
-                    <url>https://maven.anypoint.mulesoft.com/api/v3/maven</url>
+                    <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/3b5906df-666f-48a2-b837-f9309008aec9/maven</url>
                     <layout>default</layout>
                   </repository>
                 </repositories>
@@ -91,12 +91,15 @@ jobs:
           sed -i "s|CLIENT_ID_PLACEHOLDER|${{ secrets.CONNECTED_APP_CLIENT_ID }}|g" ~/.m2/settings.xml
           sed -i "s|CLIENT_SECRET_PLACEHOLDER|${{ secrets.CONNECTED_APP_CLIENT_SECRET }}|g" ~/.m2/settings.xml
 
+      - name: Set unique version
+        run: |
+          mvn versions:set -DnewVersion="1.0.0-${{ github.run_number }}" -DgenerateBackupPoms=false
+
       - name: Publish to Exchange
         run: |
           mvn deploy -DskipMunitTests \
           -Dclient.id="${{ secrets.CONNECTED_APP_CLIENT_ID }}" \
           -Dclient.secret="${{ secrets.CONNECTED_APP_CLIENT_SECRET }}"
-          -Drevision="${{ github.run_number }}"
 
   DeployToCloudHub2:
     needs: DeployToExchange
@@ -157,7 +160,7 @@ jobs:
                   <repository>
                     <id>anypoint-exchange-v3</id>
                     <name>Anypoint Exchange</name>
-                    <url>https://maven.anypoint.mulesoft.com/api/v3/maven</url>
+                    <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/3b5906df-666f-48a2-b837-f9309008aec9/maven</url>
                     <layout>default</layout>
                   </repository>
                 </repositories>
@@ -175,10 +178,13 @@ jobs:
           sed -i "s|CLIENT_ID_PLACEHOLDER|${{ secrets.CONNECTED_APP_CLIENT_ID }}|g" ~/.m2/settings.xml
           sed -i "s|CLIENT_SECRET_PLACEHOLDER|${{ secrets.CONNECTED_APP_CLIENT_SECRET }}|g" ~/.m2/settings.xml
 
+      - name: Set unique version
+        run: |
+          mvn versions:set -DnewVersion="1.0.0-${{ github.run_number }}" -DgenerateBackupPoms=false
+
       - name: Deploy to CloudHub 2.0
         run: |
           mvn deploy -DskipMunitTests -DmuleDeploy \
           -Dclient.id="${{ secrets.CONNECTED_APP_CLIENT_ID }}" \
           -Dclient.secret="${{ secrets.CONNECTED_APP_CLIENT_SECRET }}" \
           -Dmule.env="dev"
-          -Drevision="${{ github.run_number }}"
