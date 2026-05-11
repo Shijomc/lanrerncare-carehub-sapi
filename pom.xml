@@ -33,6 +33,10 @@
 				<version>3.2.0</version>
 			</plugin>
 
+			<!--
+				mule-maven-plugin v4.x handles Exchange publishing natively
+				via mvn deploy — no exchange-mule-maven-plugin needed.
+			-->
 			<plugin>
 				<groupId>org.mule.tools.maven</groupId>
 				<artifactId>mule-maven-plugin</artifactId>
@@ -42,11 +46,15 @@
 					<cloudhub2Deployment>
 						<uri>https://anypoint.mulesoft.com</uri>
 						<provider>MC</provider>
+						<!--
+							Passed in via -Dmule.env in build.yml
+							e.g. -Dmule.env="Sandbox"
+						-->
 						<environment>${mule.env}</environment>
 						<!--
-							IMPORTANT: Replace the value below with your actual
-							Shared Space or Private Space name from:
-							Runtime Manager > Infrastructure (CloudHub 2.0 tab)
+							IMPORTANT: Replace with your actual Shared Space or
+							Private Space name from:
+							Anypoint Platform > Runtime Manager > Infrastructure
 							Examples: "Cloudhub-US-East-1", "Cloudhub-EU-West-1"
 						-->
 						<target>Cloudhub-US-East-1</target>
@@ -60,27 +68,9 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>org.mule.tools.maven</groupId>
-				<artifactId>exchange-mule-maven-plugin</artifactId>
-				<version>0.0.23</version>
-				<executions>
-					<execution>
-						<id>validate</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>exchange-pre-deploy</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>deploy</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>exchange-deploy</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+			<!-- exchange-mule-maven-plugin REMOVED — was causing 409 on docs upload.
+			     mule-maven-plugin v4.x publishes to Exchange natively. -->
+
 		</plugins>
 	</build>
 
@@ -98,8 +88,8 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<!--
-			Verify this artifactId spelling in Anypoint Exchange.
-			Original pom had "lanrerncare" (extra 'r') — confirm correct name.
+			Verify this artifactId spelling matches exactly what is in Anypoint Exchange.
+			Original pom had "lanrerncare" (extra 'r') — confirm the correct name.
 		-->
 		<dependency>
 			<groupId>3b5906df-666f-48a2-b837-f9309008aec9</groupId>
