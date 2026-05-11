@@ -87,13 +87,18 @@ jobs:
             </profiles>
           </settings>
           EOF
-          # Inject secrets into settings.xml
           sed -i "s|CLIENT_ID_PLACEHOLDER|${{ secrets.CONNECTED_APP_CLIENT_ID }}|g" ~/.m2/settings.xml
           sed -i "s|CLIENT_SECRET_PLACEHOLDER|${{ secrets.CONNECTED_APP_CLIENT_SECRET }}|g" ~/.m2/settings.xml
 
+      # run_number: increments on every new push/trigger (e.g. 10, 11, 12...)
+      # run_attempt: increments on every re-run of the same workflow (e.g. 1, 2, 3...)
+      # Together they guarantee a unique version every single time.
+      # Example: 1.0.0-10-1, 1.0.0-10-2 (re-run), 1.0.0-11-1 (next push)
       - name: Set unique version
         run: |
-          mvn versions:set -DnewVersion="1.0.0-${{ github.run_number }}" -DgenerateBackupPoms=false
+          VERSION="1.0.0-${{ github.run_number }}-${{ github.run_attempt }}"
+          echo "Building version: $VERSION"
+          mvn versions:set -DnewVersion="$VERSION" -DgenerateBackupPoms=false
 
       - name: Publish to Exchange
         run: |
@@ -174,18 +179,23 @@ jobs:
             </profiles>
           </settings>
           EOF
-          # Inject secrets into settings.xml
           sed -i "s|CLIENT_ID_PLACEHOLDER|${{ secrets.CONNECTED_APP_CLIENT_ID }}|g" ~/.m2/settings.xml
           sed -i "s|CLIENT_SECRET_PLACEHOLDER|${{ secrets.CONNECTED_APP_CLIENT_SECRET }}|g" ~/.m2/settings.xml
 
+      # Must use the exact same version formula as DeployToExchange
+      # so CloudHub picks up the artifact already published to Exchange.
       - name: Set unique version
         run: |
-          mvn versions:set -DnewVersion="1.0.0-${{ github.run_number }}" -DgenerateBackupPoms=false
+          VERSION="1.0.0-${{ github.run_number }}-${{ github.run_attempt }}"
+          echo "Deploying version: $VERSION"
+          mvn versions:set -DnewVersion="$VERSION" -DgenerateBackupPoms=false
 
+      # -Dexchange.skip=true prevents re-publishing to Exchange
+      # (already done in DeployToExchange job above)
       - name: Deploy to CloudHub 2.0
         run: |
           mvn deploy -DskipMunitTests -DmuleDeploy \
           -Dclient.id="${{ secrets.CONNECTED_APP_CLIENT_ID }}" \
           -Dclient.secret="${{ secrets.CONNECTED_APP_CLIENT_SECRET }}" \
-          -Dmule.env="dev"
+          -Dmule.env="dev" \
           -Dexchange.skip=true
