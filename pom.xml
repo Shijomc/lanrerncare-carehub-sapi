@@ -4,7 +4,7 @@
 
 	<groupId>3b5906df-666f-48a2-b837-f9309008aec9</groupId>
 	<artifactId>lanrencare-carehub-sapi</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0-${revision}</version>
 	<packaging>mule-application</packaging>
 
 	<name>lanrencare-carehub-sapi</name>
@@ -19,6 +19,7 @@
 	</distributionManagement>
 
 	<properties>
+		<revision>SNAPSHOT</revision>   <!-- default for local builds -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 

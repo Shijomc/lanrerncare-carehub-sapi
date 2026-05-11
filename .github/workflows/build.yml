@@ -96,6 +96,7 @@ jobs:
           mvn deploy -DskipMunitTests \
           -Dclient.id="${{ secrets.CONNECTED_APP_CLIENT_ID }}" \
           -Dclient.secret="${{ secrets.CONNECTED_APP_CLIENT_SECRET }}"
+          -Drevision="${{ github.run_number }}"
 
   DeployToCloudHub2:
     needs: DeployToExchange
@@ -180,3 +181,4 @@ jobs:
           -Dclient.id="${{ secrets.CONNECTED_APP_CLIENT_ID }}" \
           -Dclient.secret="${{ secrets.CONNECTED_APP_CLIENT_SECRET }}" \
           -Dmule.env="dev"
+          -Drevision="${{ github.run_number }}"
