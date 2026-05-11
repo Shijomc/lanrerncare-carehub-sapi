@@ -189,6 +189,7 @@ jobs:
           echo "Deploying version: $VERSION"
           mvn versions:set -DnewVersion="$VERSION" -DgenerateBackupPoms=false
 
+          
       - name: Deploy to CloudHub 2.0
         run: |
           mvn deploy -DskipMunitTests -DmuleDeploy \
