@@ -9,6 +9,16 @@
 
 	<name>lanrencare-carehub-sapi</name>
 
+	    <!-- ADD THIS BLOCK -->
+    <distributionManagement>
+        <repository>
+            <id>anypoint-exchange-v3</id>
+            <name>Anypoint Exchange</name>
+            <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/3b5906df-666f-48a2-b837-f9309008aec9/maven</url>
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
